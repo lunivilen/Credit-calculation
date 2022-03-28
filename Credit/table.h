@@ -99,9 +99,10 @@ namespace Credit {
 			this->tab->ReadOnly = true;
 			this->tab->Size = System::Drawing::Size(546, 261);
 			this->tab->TabIndex = 0;
+			this->tab->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &table::tab_CellContentClick);
 			// 
 			// date
-			//
+			// 
 			this->date->HeaderText = L"Дата";
 			this->date->Name = L"date";
 			this->date->ReadOnly = true;
@@ -226,6 +227,35 @@ namespace Credit {
 
 			while (round(size) > 0)
 			{
+				if (period == 0)
+				{
+					if (month < 12)
+					{
+						month++;
+					}
+					else
+					{
+						month = 1;
+						year++;
+					}
+				}
+				else if (period == 1)
+				{
+					if (month < 10)
+					{
+						month += 3;
+					}
+					else
+					{
+						month -= 9;
+						year++;
+					}
+				}
+				else if (period == 2)
+				{
+					year++;
+				}
+
 				percent = size * p;
 				body = pay - percent;
 				size -= round(body);
@@ -336,5 +366,7 @@ namespace Credit {
 
 		
 	}
+private: System::Void tab_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
+}
 };
 }
